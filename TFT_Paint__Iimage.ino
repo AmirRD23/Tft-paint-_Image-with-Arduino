@@ -44,6 +44,7 @@ Adafruit_TFTLCD tft(LCD_CS, LCD_CD, LCD_WR, LCD_RD, A4);
 int b=1;
 int PENRADIUS ;
 int oldcolor, currentcolor,oldPENRADIUS;
+int rr,gg,bb=255;
 /*****************************************************************************************************/
   String filename;
   String filenamesave;  
@@ -125,20 +126,32 @@ tft.setCursor(228, 2);tft.setTextColor(BLACK);tft.setTextSize(1); tft.println("L
        oldcolor = currentcolor;
        oldPENRADIUS = PENRADIUS;
        if (p.x < BOXSIZE) { 
-         currentcolor = RED;
+         rr++;
+         currentcolor = tft.color565(rr,0,0);//Making the desired color with red,green,blue
+         tft.fillRect(0, 0, BOXSIZE, BOXSIZE, currentcolor);
+         currentcolor=tft.color565(rr,gg,bb);
          tft.drawRect(0, 0, BOXSIZE, BOXSIZE, WHITE);
-       } else if (p.x < BOXSIZE*2) {
-         currentcolor = YELLOW;//PENRADIUS=1;
+         delay (5);
+       } else if (p.x < BOXSIZE*2) { 
+        currentcolor = YELLOW;//PENRADIUS=1;
          tft.drawRect(BOXSIZE, 0, BOXSIZE, BOXSIZE, RED);
        } else if (p.x < BOXSIZE*3) {
-         currentcolor = GREEN;//PENRADIUS=2;
+         gg++;
+         currentcolor = tft.color565(0,gg,0);//Making the desired color with red,green,blue
+         tft.fillRect(BOXSIZE*2, 0, BOXSIZE, BOXSIZE, currentcolor);
+         currentcolor=tft.color565(rr,gg,bb);
          tft.drawRect(BOXSIZE*2, 0, BOXSIZE, BOXSIZE, RED);
+         delay (5);
        } else if (p.x < BOXSIZE*4) {
          currentcolor = CYAN;//PENRADIUS=3;
          tft.drawRect(BOXSIZE*3, 0, BOXSIZE, BOXSIZE, RED);
        } else if (p.x < BOXSIZE*5) {
-         currentcolor = BLUE;//PENRADIUS=4;
+         bb++;
+         currentcolor = tft.color565(0,0,bb);//Making the desired color with red,green,blue
+         tft.fillRect(BOXSIZE*4, 0, BOXSIZE, BOXSIZE, currentcolor);
+         currentcolor=tft.color565(rr,gg,bb);
          tft.drawRect(BOXSIZE*4, 0, BOXSIZE, BOXSIZE, RED);
+         delay (5);
        } else if (p.x < BOXSIZE*6) {
          currentcolor = MAGENTA;//PENRADIUS=6;
          tft.drawRect(BOXSIZE*5, 0, BOXSIZE, BOXSIZE, RED);         
